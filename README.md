@@ -108,3 +108,14 @@ Then, from within your project folder:
 npm run build
 surge public my-project.surge.sh
 ```
+
+## Svelte Appollo: 
+
+- https://github.com/timhall/svelte-apollo
+- https://hasura.io/learn/graphql/svelte-apollo/queries/2-create-query/
+- https://dev.to/lucis/update-apollo-cache-after-a-mutation-and-get-instant-benefits-on-your-ui-1c3b
+
+## Persist LocalStorage() svelte
+
+- https://stackoverflow.com/questions/56488202/how-to-persist-svelte-store
+https://www.npmjs.com/package/color-thief
