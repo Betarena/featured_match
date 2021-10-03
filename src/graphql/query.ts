@@ -4,12 +4,63 @@ import { gql } from "@apollo/client"
 /**
  * Description:
  * ~~~~~~~~~~~~~
- * Gettng the week fixtures GraphQL
- * query - outline;
+ * ... get the selected GEO-lang based
+ * selected fixture from the DB
 */
-export const GET_WEEK_FIXTURES = gql`
-    query GetDataQuery {
-        week_fixtures {
+export const GET_LANG_SELECTED_FIXTURE = gql`
+    query GET_LANG_SELECTED_FIXTURE($lang: String!) {
+        widget_featured_match_selection_dev(where: {lang: {_eq: $lang}}) {
+            date
+            fixture_id
+            game_start
+            lang
+        }
+    }
+`;
+
+/**
+ * Description:
+ * ~~~~~~~~~~~~~
+ * ... get all of the combined fixture data, 
+ * from different tables from PostgresDB 
+*/
+export const GET_ALL_FIXTURE_DATA = gql`
+    query GET_ALL_FIXTURE_DATA($id: Int!, $fixture_id: numeric!) {
+        widget_featured_match_best_player_dev_by_pk(fixture_id: $fixture_id) {
+            fixture_id
+            game_start_date
+            local_team_player_1
+            local_team_player_1_appearances
+            local_team_player_1_assists
+            local_team_player_1_goals
+            local_team_player_1_image_path
+            local_team_player_2
+            local_team_player_2_appearances
+            local_team_player_2_assists
+            local_team_player_2_goals
+            local_team_player_2_image_path
+            local_team_rating_player_1
+            local_team_rating_player_2
+            visitor_team_player_1
+            visitor_team_player_1_appearances
+            visitor_team_player_1_assists
+            visitor_team_player_1_goals
+            visitor_team_player_1_image_path
+            visitor_team_player_2
+            visitor_team_player_2_appearances
+            visitor_team_player_2_assists
+            visitor_team_player_2_goals
+            visitor_team_player_2_image_path
+            visitor_team_rating_player_1
+            visitor_team_rating_player_2
+        }
+        widget_featured_match_votes_dev_by_pk(match_id: $fixture_id) {
+            match_id
+            vote_draw_x
+            vote_win_local
+            vote_win_visitor
+        }
+        week_fixtures_dev_by_pk(id: $id) {
             away_team_logo
             away_team_name
             country_flag
@@ -20,6 +71,7 @@ export const GET_WEEK_FIXTURES = gql`
             inserted_at
             league_name
             probabilities
+            round_name
             status
             time
             tvstations
