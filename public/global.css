@@ -29,6 +29,7 @@ https://developer.mozilla.org/en-US/docs/Web/CSS/Using_CSS_custom_properties */
     --secondary: #1B1B1B;
     --light: #FFFFFF;
     --tertiary: #00FFD1;
+    --grey: #8C8C8C;
     /* 
     Dark Theme, */
     --dark: #292929;
@@ -48,6 +49,45 @@ Set Global Fonts for Website,
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.color-primary {
+    color: var(--primary);
+}
+.color-dark {
+    color: var(--dark);
+}
+.color-grey {
+    color: var(--grey);
+}
+
+.m-b-8 {
+    margin-bottom: 8px;
+}
+.m-b-12 {
+    margin-bottom: 12px;
+}
+.m-b-16 {
+    margin-bottom: 16px;
+}
+.m-b-20 {
+    margin-bottom: 20px;
+}
+
+
+.m-l-8 {
+    margin-left: 8px;
+}
+
+.m-r-8 {
+    margin-right: 8px;
+}
+.m-r-16 {
+    margin-right: 16px;
+}
+
+.text-center {
+    text-align: center
+}
 
 
 /* 
@@ -88,25 +128,24 @@ p {
     color: var(--dark);
 
 } 
+.x-large,
 p.x-large,
 span.x-large {
     font-size: 18px;
-
-} 
+}
+.large, 
 p.large,
 span.large {
     font-size: 16px;
-
 } 
+.medium,
 p.medium,
 span.medium {
     font-size: 14px;
-
 } 
-
+.small,
 p.small { 
     font-size: 12px;
-
 }
 
 /* 
@@ -206,6 +245,7 @@ TABLET (& UP),
 .column {
 	display: grid;
     align-content: center;
+    justify-items: center;
     align-items: center;
 }
 
