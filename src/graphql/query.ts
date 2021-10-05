@@ -15,6 +15,31 @@ export const GET_LANG_SELECTED_FIXTURE = gql`
             game_start
             lang
         }
+        widget_featured_match_translations_dev_by_pk(lang: $lang) {
+            assists
+            bookmaker
+            bet
+            fair_odds
+            goals
+            home_win
+            lang
+            market
+            market_name
+            market_type
+            matches
+            odds
+            place_bet
+            player
+            players
+            stake
+            rating
+            probability
+            streams
+            type
+            value_bet
+            vote
+            winnings
+        }
     }
 `;
 
