@@ -86,7 +86,8 @@ Set Global Fonts for Website,
 }
 
 .text-center {
-    text-align: center
+    text-align: center;
+    text-align: -webkit-center;
 }
 
 
@@ -145,6 +146,10 @@ span.medium {
 } 
 .small,
 p.small { 
+    font-size: 12px;
+}
+.s_small,
+p.s_small { 
     font-size: 12px;
 }
 
