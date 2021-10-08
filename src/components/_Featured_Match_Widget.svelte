@@ -203,6 +203,7 @@
     if (result != undefined) {
       fixtureDataVote = result
       showBettingSite = true
+      voteCasted = true
     }
   }
 
@@ -214,12 +215,13 @@
    * for keeping a record of the votes;
   */
   let showBettingSite: boolean = false;
-  let prev_voteCast: string = undefined;
+  let voteCasted: boolean = false;
   function castVote(voteType: string, voteVal: number): void {
-    // ... check if the user is UNSELECTING the previously selected vote cast;
-    if (voteType === fixtureDataVote.fixture_vote) {
-      // ... hide the website Bets Frame
-      showBettingSite = false
+    // ... check if a vote has already been casted ?;
+    if (voteCasted) {
+      // ... update the showBettingSite Frame;
+      showBettingSite = true;
+      // ... update the VoteMatch on DB;
       fixtureDataVote = {
         fixture_id: selected_fixture_id,
         fixture_vote: voteType,
@@ -228,35 +230,14 @@
         _1_vote: 0,
         _2_vote: 0
       }
-      fixtureDataVote["_"+fixtureDataVote.fixture_vote+"_vote"] = -1
-      fixtureVote.removeItem(fixtureDataVote)
-      fixtureDataVote.fixture_vote = undefined
-      fixtureDataVote.fixture_vote_val = undefined
-      prev_voteCast = undefined
+      fixtureDataVote["_"+fixtureDataVote.fixture_vote+"_vote"] = 1
       handleSubmit(fixtureDataVote)
-      return
+      // ... and .localStorage();
+      fixtureVote.addToVotes(fixtureDataVote)
+      // ... set the BOOLEAN to voteCasted to TRUE;
+      voteCasted = true;
     }
-    // ... update the showBettingSite Frame
-    showBettingSite = true;
-    // ... update the VoteMatch on DB
-    fixtureDataVote = {
-      fixture_id: selected_fixture_id,
-      fixture_vote: voteType,
-      fixture_vote_val: voteVal,
-      _X_vote: 0,
-      _1_vote: 0,
-      _2_vote: 0
-    }
-    // ... check if there has been a simple switch of values on the Vote Cast;
-    if (prev_voteCast != voteType && prev_voteCast != undefined) {
-      fixtureDataVote["_"+prev_voteCast+"_vote"] = -1
-    }
-    fixtureDataVote["_"+fixtureDataVote.fixture_vote+"_vote"] = 1
-    handleSubmit(fixtureDataVote)
-    // ... and localStorage()
-    fixtureVote.addToVotes(fixtureDataVote)
-    // ... set to the previous vote;
-    prev_voteCast = fixtureDataVote.fixture_vote
+    // ... else, do nothing;
   }
 
   // ~~~~~~~~~~~~~~~~~~~~~
@@ -497,6 +478,8 @@
     border: 1px solid #F5620F;
     box-sizing: border-box;
     border-radius: 8px;
+  } .cast-vote-btn:disabled {
+    opacity: 0.5;
   }
   .probablitiy-text {
     text-align: center;
@@ -506,6 +489,10 @@
 
   .active_p {
     color: #F5620F !important;
+  }
+
+  .active_p_btn:hover {
+
   }
 
   #site-bet-box {
@@ -568,8 +555,14 @@
     box-sizing: border-box;
     border-radius: 4px;
     padding: 7px 12px;
+    /* padding: 0 !important; */
     background-color: transparent;
     box-shadow: none !important;
+    width: 68px;
+    height: 40px;
+  } .live-stream-btn img {
+    object-fit: contain;
+    width: 100%;
   }
 
   /* ====================
@@ -583,11 +576,13 @@
       box-shadow: inset 0px -1px 0px #EBEBEB;
   }
 
-  table.table-best-player {
+  table.table-best-player,
+  table.value_bets {
     text-align: left;
     border-collapse: collapse;
     width: 100%;
-  } table.table-best-player .row-head {
+  } table.table-best-player .row-head,
+    table.value_bets .row-head {
     background: #F2F2F2;
     border-radius: 2px;
   } 
@@ -603,9 +598,13 @@
     padding-right: 0;
   }
 
+  table tr td {
+    padding-top: 17px !important;
+  }
+
   .rating-box {
     width: fit-content;
-    border-radius: 12px;
+    border-radius: 30px;
     padding: 4px 8px;
     color: white;
   } .seven-half-to-ten {
@@ -633,17 +632,20 @@
     border-radius: 4px;
     text-align: center;
     padding: 5px 0;
+    max-height: 30px;
   } .boxed-rating-assits,
     .boxed-rating-value-bets {
     background: #F2F2F2;
     border-radius: 4px;
     text-align: center;
     padding: 5px 0;
+    max-height: 30px;
   } .boxed-rating-goals {
     background: #E6E6E6;
     border-radius: 4px;
     text-align: center;
     padding: 5px 0;
+    max-height: 30px;
   }
 
   /* ====================
@@ -673,6 +675,7 @@
     responsivness
   ==================== */
 
+  /* MOBILE RESPONSIVNESS */
   @media only screen and (min-width: 700px) {
 
     #live-score-container {
@@ -697,8 +700,21 @@
       padding: 0; 
       text-align: end;
     }
+    .desktop-small {
+      font-size: 14px !important;
+    }
+    .desktop-medium {
+      font-size: 16px !important;
+    }
+    .desktop-x-large {
+      font-size: 20px !important;
+    }
+    .live-stream-btn {
+      padding: 0 5px;
+    }
   }
 
+  /* DESKTOP RESPONSIVNESS */
   @media only screen and (min-width: 1024px) {
 
     #live-score-container {
@@ -735,6 +751,24 @@
       min-width: 160px;
       width: 100%;
       height: 48px;
+    }
+
+    table.value_bets th {
+      width: 64px !important;
+    }
+
+    table.table-best-player th:first-child {
+      width: 44px !important;
+    }
+    table.table-best-player tr th:first-child,
+    table.table-best-player tr td:first-child {
+      padding-right: 0px;
+    }
+    table.table-best-player th {
+      width: 64px !important;
+    }
+    table.table-best-player th.player-col {
+      width: 150px !important;
     }
   }
 </style>
@@ -797,17 +831,17 @@
               alt=""
               width="72px" height="72px"
             />
-            <p class='medium'>
+            <p class='medium desktop-medium'>
               {randomFixture.home_team_name}
             </p>
           </div>
           <!-- 
           fixture-timer-clock -->
           <div>
-            <p class='x-large'>
+            <p class='x-large desktop-x-large'>
               {countD_h}:{countD_min}:{countD_sec}
             </p>
-            <p class='small color-grey' style="white-space: nowrap;">
+            <p class='small color-grey desktop-medium' style="white-space: nowrap;">
               {getOrdinalNum(fixtureTime.getDate())}
               {monthNames[fixtureTime.getMonth().toString()]} 
               {fixtureTime.getFullYear().toString().substr(-2)},
@@ -823,7 +857,7 @@
               alt=""
               width="72px" height="72px"
             />
-            <p class='medium'>
+            <p class='medium desktop-medium'>
               {randomFixture.away_team_name}
             </p>
           </div>
@@ -846,7 +880,8 @@
             -->
             <div class='odds-vote-box text-center column'>
               <button class='row-space-out cast-vote-btn m-b-12' 
-                class:active={fixtureDataVote.fixture_vote == '1'} 
+                class:active={fixtureDataVote.fixture_vote == '1'}
+                disabled={voteCasted}
                 on:click={() => castVote('1', value.fixture_odds.markets["1X2FT"].data[0].value)}>
                 <p class='medium row-space-out'>
                   {#if !viewportDesktop}
@@ -892,6 +927,7 @@
             <div class='odds-vote-box text-center column'>
               <button class='row-space-out cast-vote-btn m-b-12' 
                 class:active={fixtureDataVote.fixture_vote == 'X'} 
+                disabled={voteCasted}
                 on:click={() => castVote('X', value.fixture_odds.markets["1X2FT"].data[1].value)}>
                 <p class='medium row-space-out'>
                   <span class="color-grey">
@@ -929,6 +965,7 @@
             <div class='odds-vote-box column text-center'>
               <button class='row-space-out cast-vote-btn m-b-12' 
                 class:active={fixtureDataVote.fixture_vote == '2'} 
+                disabled={voteCasted}
                 on:click={() => castVote('2', value.fixture_odds.markets["1X2FT"].data[2].value)}>
                 <p class='medium row-space-out'>
                   {#if !viewportDesktop}
@@ -1162,7 +1199,7 @@
                   {translation.rating}
                 </p>
               </th>
-              <th width="45%">
+              <th class='player-col' width="45%">
                 <p class='small color-grey'>
                   {translation.player}
                 </p>
@@ -1188,7 +1225,7 @@
             <!-- PLAYER 1 -->
             <tr>
               <td>
-                <p class='large rating-box'
+                <p class='medium rating-box'
                   class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 7}
                   class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 5}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 0}
@@ -1204,7 +1241,7 @@
                   height="32px"
                   class='player-img'
                 />
-                <p class='small'> {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_player_1} </p>
+                <p class='small desktop-small'> {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_player_1} </p>
               </td>
               {#if viewportDesktop}
                 <td>
@@ -1227,7 +1264,7 @@
             <!-- PLAYER 2 -->
             <tr>
               <td>
-                <p class='large rating-box'
+                <p class='medium rating-box'
                   class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 7}
                   class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 5}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 0}
@@ -1243,7 +1280,7 @@
                   height="32px"
                   class='player-img'
                 />
-                <p class='small'> {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_player_2} </p>
+                <p class='small desktop-small'> {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_player_2} </p>
               </td>
               {#if viewportDesktop}
                 <td>
@@ -1288,7 +1325,7 @@
                   {translation.rating}
                 </p>
               </th>
-              <th width="45%">
+              <th class='player-col' width="45%">
                 <p class='small color-grey'>
                   {translation.player}
                 </p>
@@ -1314,7 +1351,7 @@
             <!-- PLAYER 1 -->
             <tr>
               <td>
-                <p class='large rating-box'
+                <p class='medium rating-box'
                   class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 7}
                   class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 5}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 0}
@@ -1330,7 +1367,7 @@
                   height="32px"
                   class='player-img'
                 />
-                <p class='small'>{FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_player_1}</p>
+                <p class='small desktop-small'>{FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_player_1}</p>
               </td>
               {#if viewportDesktop}
                 <td>
@@ -1353,7 +1390,7 @@
             <!-- PLAYER 2 -->
             <tr>
               <td>
-                <p class='large rating-box'
+                <p class='medium rating-box'
                   class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 7}
                   class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 5}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 0}
@@ -1369,7 +1406,7 @@
                   height="32px"
                   class='player-img'
                 />
-                <p class='small'>{FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_player_2}</p>
+                <p class='small desktop-small'>{FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_player_2}</p>
               </td>
               {#if viewportDesktop}
                 <td>
@@ -1477,19 +1514,19 @@
 
             </div>
           {:else}
-            <table class='table-best-player'>
+            <table class='value_bets'>
               <tr class='row-head m-b-16'>
-                <th width="12.5%">
+                <th class='text-center' style='text-align: start;' width="12.5%">
                   <p class='small color-grey'>
                     {translation.bookmaker}
                   </p>
                 </th>
-                <th width="12.5%">
+                <th class='text-center' width="12.5%">
                   <p class='small color-grey'>
                     {translation.type}
                   </p>
                 </th>
-                <th width="30%">
+                <th class='text-center' width="30%">
                   <p class='small color-grey'>
                     {translation.market}
                   </p>
@@ -1510,40 +1547,49 @@
               <!-- 
               VALUE-BET - ROW SINGLE -->
               <tr>
-                <td>
-                  <img 
-                    src={FINAL_VALUE_BETS_DATA.image} 
-                    alt={FINAL_VALUE_BETS_DATA.bookmaker}
-                    height="30px"
-                    width="56px"
-                    style="object-fit: cover; border-radius: 4px;"
-                  />
+                <td class='text-center' style='text-align: start;'>
+                  <a rel=external
+                    href={FINAL_VALUE_BETS_DATA.link}>
+                    <img 
+                      src={FINAL_VALUE_BETS_DATA.image} 
+                      alt={FINAL_VALUE_BETS_DATA.bookmaker}
+                      height="30px"
+                      width="56px"
+                      style="object-fit: cover; border-radius: 4px;"
+                    />
+                  </a>
                 </td>
                 <td>
-                  <p class='medium'>
+                  <p class='medium text-center'>
                     {translation.market_name}
                   </p>
                 </td>
                 <td>
-                  <p class='medium'>
+                  <p class='medium text-center'>
                     {translation.market_type}
-                  </p>
-                </td>
-                <td>
-                  <p class='medium boxed-rating-value-bets'>
-                    {FINAL_VALUE_BETS_DATA.odd} 
-                  </p>
-                </td>
-                <td>
-                  <p class='medium boxed-rating-value-bets'>
-                    {FINAL_VALUE_BETS_DATA.fair_odd} 
                   </p>
                 </td>
                 <td>
                   <a rel=external
                     href={FINAL_VALUE_BETS_DATA.link}>
+                    <p class='medium max-height: 30px; boxed-rating-value-bets active_p_btn'>
+                      {FINAL_VALUE_BETS_DATA.odd} 
+                    </p>
+                  </a>
+                </td>
+                <td>
+                  <a rel=external
+                    href={FINAL_VALUE_BETS_DATA.link}>
+                    <p class='medium max-height: 30px; boxed-rating-value-bets active_p_btn'>
+                      {FINAL_VALUE_BETS_DATA.fair_odd} 
+                    </p>
+                  </a>
+                </td>
+                <td>
+                  <a rel=external
+                    href={FINAL_VALUE_BETS_DATA.link}>
                     <button 
-                      style='width: 100%; padding: 6px 0; border-radius: 4px;' 
+                      style='width: 100%; padding: 6px 0; max-height: 30px; border-radius: 4px;' 
                       class='btn-primary'
                       >
                       <p class='medium'>
