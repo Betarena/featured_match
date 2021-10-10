@@ -218,7 +218,7 @@
   let voteCasted: boolean = false;
   function castVote(voteType: string, voteVal: number): void {
     // ... check if a vote has already been casted ?;
-    if (voteCasted) {
+    if (!voteCasted) {
       // ... update the showBettingSite Frame;
       showBettingSite = true;
       // ... update the VoteMatch on DB;
@@ -492,7 +492,7 @@
   }
 
   .active_p_btn:hover {
-
+    color: #F5620F !important;
   }
 
   #site-bet-box {
@@ -591,9 +591,10 @@
     padding: 7px 12px;
     /* padding: 7px 0; */
   }
-  /* table tr th:first-child {
-    padding-left: 12px;
-  } */
+  table tr td:first-child {
+    /* padding-left: 0; */
+  }
+  
   table tr td:last-child {
     padding-right: 0;
   }
@@ -602,10 +603,15 @@
     padding-top: 17px !important;
   }
 
+  .rating-head {
+    width: 59px;
+  }
   .rating-box {
     width: fit-content;
     border-radius: 30px;
-    padding: 4px 8px;
+    padding: 1.5px 8px;
+    color: white;
+  } .rating-box p {
     color: white;
   } .seven-half-to-ten {
     background: #FFB904;
@@ -623,29 +629,6 @@
     border: 1px solid #CCCCCC;
     border-radius: 50%;
     margin-right: 8px;
-  }
-
-  .boxed-rating-matches {
-    background: #FFFFFF;
-    border: 1px solid #E6E6E6;
-    box-sizing: border-box;
-    border-radius: 4px;
-    text-align: center;
-    padding: 5px 0;
-    max-height: 30px;
-  } .boxed-rating-assits,
-    .boxed-rating-value-bets {
-    background: #F2F2F2;
-    border-radius: 4px;
-    text-align: center;
-    padding: 5px 0;
-    max-height: 30px;
-  } .boxed-rating-goals {
-    background: #E6E6E6;
-    border-radius: 4px;
-    text-align: center;
-    padding: 5px 0;
-    max-height: 30px;
   }
 
   /* ====================
@@ -677,6 +660,49 @@
 
   /* MOBILE RESPONSIVNESS */
   @media only screen and (min-width: 700px) {
+
+    .boxed-rating-matches {
+      background: #FFFFFF;
+      border: 1px solid #E6E6E6;
+      box-sizing: border-box;
+      border-radius: 4px;
+      text-align: center;
+      padding: 5px 0;
+      max-height: 30px;
+      width: 64px;
+    } .boxed-rating-assits,
+      .boxed-rating-value-bets {
+      background: #F2F2F2;
+      border-radius: 4px;
+      text-align: center;
+      padding: 5px 0;
+      max-height: 30px;
+      width: 64px;
+    } .boxed-rating-goals {
+      background: #E6E6E6;
+      border-radius: 4px;
+      text-align: center;
+      padding: 5px 0;
+      max-height: 30px;
+      width: 64px;
+    }
+
+    table.table-best-player tr th:first-child p {
+      left: 10%;
+      position: relative;
+    }
+    table.table-best-player tr th:last-child p {
+      left: 10%;
+      position: relative;
+    }
+
+    table tr td:first-child {
+      padding-left: 10px;
+    }
+    table td, 
+    table th {
+      padding: 7px 10px;
+    }
 
     #live-score-container {
       width: 100%;
@@ -712,6 +738,26 @@
     .live-stream-btn {
       padding: 0 5px;
     }
+    .player-col {
+      width: 357px;
+    }
+    .rating-head {
+      width: 44px;
+    }
+    table.value_bets tr th:nth-child(-n+3),
+    table.value_bets tr td:nth-child(-n+3) {
+      max-width: 72px !important;
+      padding-right: 24px;
+    }
+    table.value_bets tr th:nth-child(3),
+    table.value_bets tr td:nth-child(3) {
+      padding-right: 190px !important;
+    }
+    table.value_bets tr th:nth-last-child(-n+3),
+    table.value_bets tr td:nth-last-child(-n+3),
+    table.value_bets tr td button {
+      width: 64px !important;
+    }
   }
 
   /* DESKTOP RESPONSIVNESS */
@@ -725,6 +771,7 @@
       width: 100%;
       max-width: 133px;
     }
+
     .tooltip {
       position: relative;
       display: inline-block;
@@ -753,8 +800,20 @@
       height: 48px;
     }
 
-    table.value_bets th {
+    table.value_bets tr th:nth-child(-n+3),
+    table.value_bets tr td:nth-child(-n+3) {
+      max-width: 72px !important;
+      padding-right: 24px;
+    }
+    table.value_bets tr th:nth-last-child(-n+3),
+    table.value_bets tr td:nth-last-child(-n+3),
+    table.value_bets tr td button {
       width: 64px !important;
+    }
+
+    table.value_bets tr th:nth-child(3),
+    table.value_bets tr td:nth-child(3) {
+      padding-right: 24px !important;
     }
 
     table.table-best-player th:first-child {
@@ -764,11 +823,9 @@
     table.table-best-player tr td:first-child {
       padding-right: 0px;
     }
-    table.table-best-player th {
-      width: 64px !important;
-    }
     table.table-best-player th.player-col {
-      width: 150px !important;
+      min-width: 226px !important;
+      max-width: 226px !important;
     }
   }
 </style>
@@ -862,7 +919,7 @@
             </p>
           </div>
         </div>
-        {#if !showBettingSite}
+        {#if !voteCasted}
           <p class='large color-primary m-b-12 text-center'>
             {translation.vote}
           </p>
@@ -1194,28 +1251,28 @@
           </div>
           <table class='table-best-player'>
             <tr class='row-head m-b-16'>
-              <th width="10%">
+              <th class='rating-head'>
                 <p class='small color-grey'>
                   {translation.rating}
                 </p>
               </th>
-              <th class='player-col' width="45%">
+              <th class='player-col'>
                 <p class='small color-grey'>
                   {translation.player}
                 </p>
               </th>
               {#if viewportDesktop}
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.matches}
                   </p>
                 </th>
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.assists}
                   </p>
                 </th>
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.goals}
                   </p>
@@ -1225,13 +1282,16 @@
             <!-- PLAYER 1 -->
             <tr>
               <td>
-                <p class='medium rating-box'
+                <div class='rating-box'
                   class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 7}
                   class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 5}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 0}
                   >
-                  {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1} 
-                </p>
+                  <p class='medium'
+                    >
+                    {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1} 
+                  </p>
+                </div>
               </td>
               <td class='row-space-start'>
                 <img 
@@ -1264,13 +1324,16 @@
             <!-- PLAYER 2 -->
             <tr>
               <td>
-                <p class='medium rating-box'
+                <div class='rating-box'
                   class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 7}
                   class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 5}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 0}
-                  > 
-                  {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2} 
-                </p>
+                  >
+                  <p class='medium'
+                    >
+                    {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2} 
+                  </p>
+                </div>
               </td>
               <td class='row-space-start'>
                 <img 
@@ -1320,28 +1383,28 @@
           <!--  -->
           <table class='table-best-player'>
             <tr class='row-head m-b-16'>
-              <th width="10%">
+              <th class='rating-head'>
                 <p class='small color-grey'>
                   {translation.rating}
                 </p>
               </th>
-              <th class='player-col' width="45%">
+              <th class='player-col'>
                 <p class='small color-grey'>
                   {translation.player}
                 </p>
               </th>
               {#if viewportDesktop}
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                       {translation.matches}
                   </p>
                 </th>
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.assists}
                   </p>
                 </th>
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.goals}
                   </p>
@@ -1351,13 +1414,15 @@
             <!-- PLAYER 1 -->
             <tr>
               <td>
-                <p class='medium rating-box'
+                <div class='rating-box'
                   class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 7}
                   class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 5}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 0}
                   >
-                  {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1} 
-                </p>
+                  <p class='medium'>
+                    {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1} 
+                  </p>
+                </div>
               </td>
               <td class='row-space-start'>
                 <img 
@@ -1390,13 +1455,15 @@
             <!-- PLAYER 2 -->
             <tr>
               <td>
-                <p class='medium rating-box'
+                <div class='rating-box'
                   class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 7}
                   class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 5}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 0}
-                  > 
-                  {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2} 
-                </p>
+                  >
+                  <p class='medium'> 
+                    {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2} 
+                  </p>
+                </div>
               </td>
               <td class='row-space-start'>
                 <img 
@@ -1516,32 +1583,32 @@
           {:else}
             <table class='value_bets'>
               <tr class='row-head m-b-16'>
-                <th class='text-center' style='text-align: start;' width="12.5%">
+                <th class='text-center' style='text-align: start;'>
                   <p class='small color-grey'>
                     {translation.bookmaker}
                   </p>
                 </th>
-                <th class='text-center' width="12.5%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.type}
                   </p>
                 </th>
-                <th class='text-center' width="30%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.market}
                   </p>
                 </th>
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.odds}
                   </p>
                 </th>
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                   <p class='small color-grey'>
                     {translation.fair_odds}
                   </p>
                 </th>
-                <th class='text-center' width="15%">
+                <th class='text-center'>
                 </th>
               </tr>
               <!-- 
@@ -1573,7 +1640,7 @@
                   <a rel=external
                     href={FINAL_VALUE_BETS_DATA.link}>
                     <p class='medium max-height: 30px; boxed-rating-value-bets active_p_btn'>
-                      {FINAL_VALUE_BETS_DATA.odd} 
+                      {Math.round(parseInt(FINAL_VALUE_BETS_DATA.odd.toString())).toFixed(2)} 
                     </p>
                   </a>
                 </td>
@@ -1581,7 +1648,7 @@
                   <a rel=external
                     href={FINAL_VALUE_BETS_DATA.link}>
                     <p class='medium max-height: 30px; boxed-rating-value-bets active_p_btn'>
-                      {FINAL_VALUE_BETS_DATA.fair_odd} 
+                      {Math.round(parseInt(FINAL_VALUE_BETS_DATA.fair_odd)).toFixed(2)} 
                     </p>
                   </a>
                 </td>
