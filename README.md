@@ -119,3 +119,5 @@ surge public my-project.surge.sh
 
 - https://stackoverflow.com/questions/56488202/how-to-persist-svelte-store
 https://www.npmjs.com/package/color-thief
+
+https://revolution-20b13.firebaseio.com/odds/2021/10/09/18153581/.json?auth=gLHXcpt0UfvENceoo0XDZTWHYfDMWy18Qg8UYxIA
