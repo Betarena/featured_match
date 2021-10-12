@@ -478,6 +478,7 @@
     border: 1px solid #F5620F;
     box-sizing: border-box;
     border-radius: 8px;
+    opacity: 1 !important;
   } .cast-vote-btn:disabled {
     opacity: 0.5;
   }
@@ -590,6 +591,7 @@
   table th {
     padding: 7px 12px;
     /* padding: 7px 0; */
+    vertical-align: middle;
   }
   table tr td:first-child {
     /* padding-left: 0; */
@@ -600,7 +602,8 @@
   }
 
   table tr td {
-    padding-top: 17px !important;
+    padding-top: 16px !important;
+    padding-bottom: 0px;
   }
 
   .rating-head {
@@ -758,6 +761,12 @@
     table.value_bets tr td button {
       width: 64px !important;
     }
+    .player-img {
+      margin-right: 16px;
+    }
+    table tr:nth-child(2) td {
+      padding-top: 20px !important;
+    }
   }
 
   /* DESKTOP RESPONSIVNESS */
@@ -821,11 +830,15 @@
     }
     table.table-best-player tr th:first-child,
     table.table-best-player tr td:first-child {
-      padding-right: 0px;
+      /* padding-right: 0px; */
     }
     table.table-best-player th.player-col {
-      min-width: 226px !important;
-      max-width: 226px !important;
+      /* min-width: 226px !important;
+      max-width: 226px !important; */
+      width: 100%;
+    }
+    .player-img {
+      margin-right: 16px;
     }
   }
 </style>
@@ -961,7 +974,9 @@
               {#if !showBettingSite}
                 <p class='probablitiy-text medium'>
                   Probability
-                  <br />
+                  {#if !viewportDesktop}
+                    <br />
+                  {/if}
                     {Math.round(parseInt(randomFixture.probabilities.home)).toFixed(2)}%
                 </p>
               {:else}
@@ -987,9 +1002,17 @@
                 disabled={voteCasted}
                 on:click={() => castVote('X', value.fixture_odds.markets["1X2FT"].data[1].value)}>
                 <p class='medium row-space-out'>
-                  <span class="color-grey">
-                    X
-                  </span>
+                  {#if !viewportDesktop}
+                    <span class="color-grey">
+                      X
+                    </span>
+                  {:else}
+                    <img 
+                      src="./static/icon/icon-close.svg" 
+                      alt=""
+                      width="28px" height="28px"
+                    />
+                  {/if}
                   <span class:active_p={fixtureDataVote.fixture_vote == 'X'} >
                     {value.fixture_odds.markets["1X2FT"].data[1].value}
                   </span>
@@ -999,7 +1022,9 @@
               {#if !showBettingSite}
                 <p class='probablitiy-text medium'>
                   Probability
-                  <br />
+                  {#if !viewportDesktop}
+                    <br />
+                  {/if}
                     {Math.round(parseInt(randomFixture.probabilities.draw)).toFixed(2)}%
                 </p>
               {:else}
@@ -1045,7 +1070,9 @@
               {#if !showBettingSite}
                 <p class='probablitiy-text medium'>
                   Probability
-                  <br />
+                  {#if !viewportDesktop}
+                    <br />
+                  {/if}
                     {Math.round(parseInt(randomFixture.probabilities.away)).toFixed(2)}%
                 </p>
               {:else}
@@ -1283,8 +1310,8 @@
             <tr>
               <td>
                 <div class='rating-box'
-                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 7}
-                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 5}
+                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 9}
+                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 7}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 0}
                   >
                   <p class='medium'
@@ -1325,8 +1352,8 @@
             <tr>
               <td>
                 <div class='rating-box'
-                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 7}
-                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 5}
+                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 9}
+                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 7}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 0}
                   >
                   <p class='medium'
@@ -1415,8 +1442,8 @@
             <tr>
               <td>
                 <div class='rating-box'
-                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 7}
-                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 5}
+                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 9}
+                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 7}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 0}
                   >
                   <p class='medium'>
@@ -1456,8 +1483,8 @@
             <tr>
               <td>
                 <div class='rating-box'
-                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 7}
-                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 5}
+                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 9}
+                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 7}
                   class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 0}
                   >
                   <p class='medium'> 
@@ -1616,7 +1643,8 @@
               <tr>
                 <td class='text-center' style='text-align: start;'>
                   <a rel=external
-                    href={FINAL_VALUE_BETS_DATA.link}>
+                    href={FINAL_VALUE_BETS_DATA.link}
+                    style='height: 30px;'>
                     <img 
                       src={FINAL_VALUE_BETS_DATA.image} 
                       alt={FINAL_VALUE_BETS_DATA.bookmaker}
