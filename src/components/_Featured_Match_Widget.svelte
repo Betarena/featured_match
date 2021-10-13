@@ -520,6 +520,9 @@
     background: #F2F2F2;
     border-radius: 8px;
   }
+  #inner-site-container button {
+    height: 46px;
+  }
   .input-value {
     -moz-appearance: textfield;
     background: #FFFFFF;
@@ -677,6 +680,10 @@
 
   /* MOBILE RESPONSIVNESS */
   @media only screen and (min-width: 700px) {
+
+    #inner-site-container button {
+      height: 44px;
+    }
 
     .boxed-rating-matches {
       background: #FFFFFF;
