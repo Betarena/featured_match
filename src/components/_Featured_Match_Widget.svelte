@@ -442,10 +442,22 @@
     display: grid;
     grid-auto-flow: column;
     justify-items: center;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
     grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
   }
 
   /* ====================
@@ -504,11 +516,12 @@
     overflow: hidden;
   }
   #inner-site-container {
-    padding: 12px 20px;
+    padding: 20px 12px;
     background: #F2F2F2;
     border-radius: 8px;
   }
   .input-value {
+    -moz-appearance: textfield;
     background: #FFFFFF;
     border-radius: 8px;
     padding: 14px;
@@ -531,7 +544,7 @@
   }
 
   #live-stream-box {
-    padding: 20px;
+    padding: 20px 0;
     box-shadow: inset 0px -1px 0px #EBEBEB;
     overflow: hidden;
     width: inherit;
@@ -541,6 +554,7 @@
     grid-auto-flow: column;
     gap: 8px;
     overflow-y: scroll;
+    padding: 0 20px;
   }
   /* Hide scrollbar for Chrome, Safari and Opera */
   #livestream-grid::-webkit-scrollbar {
@@ -593,8 +607,8 @@
     /* padding: 7px 0; */
     vertical-align: middle;
   }
-  table tr td:first-child {
-    /* padding-left: 0; */
+  table.table-best-player tr td:first-child {
+    padding-left: 0;
   }
   
   table tr td:last-child {
@@ -616,16 +630,16 @@
     color: white;
   } .rating-box p {
     color: white;
-  } .seven-half-to-ten {
+  } .golden {
     background: #FFB904;
-  } .five-to-seven-half {
+  } .silver {
     background: #A1A1A1;
-  } .zero-to-five-half {
+  } .bronze {
     background: #DBB884;
   }
 
   .tooltip .tooltiptext {
-    visibility: hidden;
+    display: none;
   }
 
   .player-img {
@@ -781,6 +795,10 @@
       max-width: 133px;
     }
 
+    .tooltip .tooltiptext {
+      display: unset !important;
+    }
+
     .tooltip {
       position: relative;
       display: inline-block;
@@ -801,7 +819,7 @@
       transition: all 0.15s ease-in;
     }
     .tooltip:hover .tooltiptext {
-      visibility: visible;
+      visibility: visible !important;
     }
     .cast-vote-btn {
       min-width: 160px;
@@ -907,7 +925,7 @@
           </div>
           <!-- 
           fixture-timer-clock -->
-          <div>
+          <div style='align-self: center;'>
             <p class='x-large desktop-x-large'>
               {countD_h}:{countD_min}:{countD_sec}
             </p>
@@ -1231,7 +1249,7 @@
         <div id='live-stream-box'>
           <!-- 
           live-streams-title-section -->
-          <p class='large m-b-8'>
+          <p class='large m-b-8' style='padding-left: 20px;'>
             {translation.streams}
           </p>
           <!-- 
@@ -1310,9 +1328,9 @@
             <tr>
               <td>
                 <div class='rating-box'
-                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 9}
-                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 7}
-                  class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 0}
+                  class:bronze={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 0 && FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 < 7}
+                  class:silver={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 7 && FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 < 9}
+                  class:golden={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_1 >= 9}
                   >
                   <p class='medium'
                     >
@@ -1352,9 +1370,9 @@
             <tr>
               <td>
                 <div class='rating-box'
-                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 9}
-                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 7}
-                  class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 0}
+                  class:bronze={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 0 && FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 < 7}
+                  class:silver={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 7 && FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 < 9}
+                  class:golden={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.local_team_rating_player_2 >= 9}
                   >
                   <p class='medium'
                     >
@@ -1442,9 +1460,9 @@
             <tr>
               <td>
                 <div class='rating-box'
-                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 9}
-                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 7}
-                  class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 0}
+                  class:bronze={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 0 && FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 < 7}
+                  class:silver={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 7 && FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 < 9}
+                  class:golden={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1 >= 9}
                   >
                   <p class='medium'>
                     {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_1} 
@@ -1483,9 +1501,9 @@
             <tr>
               <td>
                 <div class='rating-box'
-                  class:seven-half-to-ten={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 9}
-                  class:five-to-seven-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 7}
-                  class:zero-to-five-half={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 0}
+                  class:bronze={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 0 && FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 < 7}
+                  class:silver={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 7 && FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 < 9}
+                  class:golden={FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2 >= 9}
                   >
                   <p class='medium'> 
                     {FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA.visitor_team_rating_player_2} 
@@ -1542,12 +1560,16 @@
                   <p class='medium color-grey'>
                     {translation.bookmaker}
                   </p>
-                  <img 
-                    src={FINAL_VALUE_BETS_DATA.image} 
-                    alt={FINAL_VALUE_BETS_DATA.bookmaker}
-                    height="30px"
-                    width="56px"
-                  />
+                  <a rel=external
+                    href={FINAL_VALUE_BETS_DATA.link}
+                    >
+                    <img 
+                      src={FINAL_VALUE_BETS_DATA.image} 
+                      alt={FINAL_VALUE_BETS_DATA.bookmaker}
+                      height="30px"
+                      width="56px"
+                    />
+                  </a>
                 </div>
 
                 <div class='row-space-out'>
@@ -1572,24 +1594,32 @@
                   <p class='medium color-grey'>
                     {translation.odds}
                   </p>
-                  <p class='medium color-dark'
-                    style="background: #FFFFFF;
-                    border-radius: 4px;
-                    padding: 4px 6px;">
-                    {FINAL_VALUE_BETS_DATA.odd}
-                  </p>
+                  <a rel=external
+                    href={FINAL_VALUE_BETS_DATA.link}
+                    >
+                    <p class='medium color-dark'
+                      style="background: #FFFFFF;
+                      border-radius: 4px;
+                      padding: 4px 6px;">
+                      {Math.round(parseInt(FINAL_VALUE_BETS_DATA.odd.toString())).toFixed(2)} 
+                    </p>
+                  </a>
                 </div>
 
                 <div class='row-space-out'>
                   <p class='medium color-grey'>
                     {translation.fair_odds}
                   </p>
-                  <p class='medium color-dark' 
-                    style="background: #FFFFFF;
-                    border-radius: 4px;
-                    padding: 4px 6px;">
-                    {FINAL_VALUE_BETS_DATA.fair_odd}
-                  </p>
+                  <a rel=external
+                    href={FINAL_VALUE_BETS_DATA.link}
+                    >
+                    <p class='medium color-dark' 
+                      style="background: #FFFFFF;
+                      border-radius: 4px;
+                      padding: 4px 6px;">
+                      {Math.round(parseInt(FINAL_VALUE_BETS_DATA.fair_odd.toString())).toFixed(2)} 
+                    </p>
+                  
                 </div>
               </div>
               <!-- 
