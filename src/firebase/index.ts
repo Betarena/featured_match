@@ -53,7 +53,7 @@ export function writeData() {
             counter++
             // write the data to the `real-db`;
             db_real.ref('featured_betting_sites/' + lang + '/' + featuredData).update(data)
-            console.info('Data for' + `${lang}` + 'Written!')
+            // console.info('Data for' + `${lang}` + 'Written!')
         })
         db_real.ref('featured_betting_sites/' + lang).update({'title': 'Top Bookmekers from the US'})
         db_real.ref('featured_betting_sites/' + lang).update({'show_more_less': ['Show full list', 'Show less']})
@@ -70,9 +70,8 @@ export function writeData() {
 */
 export async function getTargetFixtureOdds(fixture_data: any): Promise<any> {
     // ... convert the datetime to the correct variables;
-    console.log('fixture_data', fixture_data);
+    // console.log('fixture_data', fixture_data);
     let date = new Date(fixture_data.date)
-    console.log('date', date.getDate())
     let year_ = new Date(fixture_data.date).getFullYear().toString()
     let month_ = new Date(fixture_data.date).getMonth()
     let new_month_ = (month_ + 1).toString()
@@ -139,7 +138,7 @@ export async function getTargetFixtureOdds(fixture_data: any): Promise<any> {
 export async function getTargetGeoSportBookDetails(lang: string, siteName?: string): Promise< any > {
     // ... return the odds-site info & the odds values;
     if (siteName != undefined) {
-        console.log('siteName', siteName);
+        // console.log('siteName', siteName);
         return db_real.ref()
             .child('sportsbook_details')
             .child(lang)
@@ -147,7 +146,7 @@ export async function getTargetGeoSportBookDetails(lang: string, siteName?: stri
             .then((snapshot) => {
             // ... check if the data exists (should exist at all times anyway);
             if (snapshot.exists()) {
-                console.info('data from Real DB', [snapshot.val()])
+                // console.info('data from Real DB', [snapshot.val()])
                 
                 let map = new Map();
                 let sportbook_details_ = snapshot.val()
@@ -176,7 +175,7 @@ export async function getTargetGeoSportBookDetails(lang: string, siteName?: stri
             .then((snapshot) => {
             // ... check if the data exists (should exist at all times anyway);
             if (snapshot.exists()) {
-                console.info('data from Real DB', [snapshot.val()])
+                // console.info('data from Real DB', [snapshot.val()])
                 
                 // return the response as an Array;
                 return snapshot.val()

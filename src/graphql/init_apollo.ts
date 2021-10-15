@@ -17,7 +17,7 @@ import { query } from "svelte-apollo"
  * @returns 
 */
 function createApolloClient(authToken: string): ApolloClient < NormalizedCacheObject > {
-    console.log('initialzied-auth-token-4-de-app!')
+    // console.log('initialzied-auth-token-4-de-app!')
     const client = new ApolloClient({
         uri: "https://betarena.hasura.app/v1/graphql",
         headers: {
