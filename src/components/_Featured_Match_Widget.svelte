@@ -106,7 +106,7 @@
   let intial: boolean = false;
   $: if ($FINAL_FIXTURE_DATA != undefined) {
     if ($FINAL_FIXTURE_DATA.data && !intial) {
-      console.log("$FINAL_FIXTURE_DATA.data", $FINAL_FIXTURE_DATA.data)
+      // console.log("$FINAL_FIXTURE_DATA.data", $FINAL_FIXTURE_DATA.data)
       // ... gain access to the data of the fixture;
       // ... get fixture time;
       fixtureTime = $FINAL_FIXTURE_DATA.data.week_fixtures_dev_by_pk.time
@@ -168,7 +168,7 @@
         }
       });
     } catch (error) {
-      console.log('There has been an error!')
+      // console.log('There has been an error!')
     }
   }
 
