@@ -48,7 +48,8 @@
   }
   $: if (userGeoResponse != undefined && userGeoResponse.country_code) {
     // ... get the Users LeagueList;
-    getSelectedFixture("en") // ... change to the USERS GEO LATER ON...
+    // console.log('userGeoResponse', userGeoResponse);
+    getSelectedFixture(userGeoResponse.country_code) // ... change to the USERS GEO LATER ON...
   }
 
   /**
@@ -63,15 +64,24 @@
   }
   $: if ($SELECTED_MATCH_FIXTURE != undefined) {
     if ($SELECTED_MATCH_FIXTURE.data) {
-      // console.log('$SELECTED_MATCH_FIXTURE.data', $SELECTED_MATCH_FIXTURE.data);
+      let dataAvailable = true
+      console.log('$SELECTED_MATCH_FIXTURE.data', $SELECTED_MATCH_FIXTURE.data);
       // ... get the rest of the data for the pre-selected fixture;
-      selected_fixture_id = $SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection[0].fixture_id
-      // ... get the translations;
-      translation = $SELECTED_MATCH_FIXTURE.data.widget_featured_match_translations_by_pk
-      // ... create a promise, for obtaining the complete fixture odds data;
-      promise = get_TargetFixtureOddsAndInfo($SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection[0])
-      // ... get the complete fixture data;
-      get_CompleteFixtureData(selected_fixture_id);
+      if ($SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection.length == 0) {
+        getSelectedFixture("en") // ... DEFAULT EN VALUE
+        dataAvailable = false    // ... SIGNAL THAT DATA IS NO LINGER AVAILBLE
+      }
+      if (dataAvailable) {
+        if ($SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection.length != 0) {
+          selected_fixture_id = $SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection[0].fixture_id
+          // ... get the translations;
+          translation = $SELECTED_MATCH_FIXTURE.data.widget_featured_match_translations_by_pk
+          // ... create a promise, for obtaining the complete fixture odds data;
+          promise = get_TargetFixtureOddsAndInfo($SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection[0])
+          // ... get the complete fixture data;
+          get_CompleteFixtureData(selected_fixture_id);
+        }
+      }
     }
   }
 

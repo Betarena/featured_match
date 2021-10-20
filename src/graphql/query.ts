@@ -15,7 +15,8 @@ export const GET_LANG_SELECTED_FIXTURE = gql`
             game_start
             lang
         }
-        widget_featured_match_translations_by_pk(lang: $lang) {
+        # widget_featured_match_translations_by_pk(lang: $lang) {
+        widget_featured_match_translations_by_pk(lang: "en") {
             assists
             bookmaker
             bet
