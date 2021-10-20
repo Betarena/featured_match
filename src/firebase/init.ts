@@ -12,10 +12,10 @@ import {
 
 // firebase config with non-auth properties skipped
 const firebaseConfig = {
-  apiKey: 'AIzaSyAouwjs0lIsu_1CyGl7WpjL_WGNFqRfYRk',
-  authDomain: 'revolution-20b13.firebaseapp.com',
-  projectId: 'revolution-20b13',
-  databaseURL: "https://revolution-20b13.firebaseio.com/",
+  apiKey: 'AIzaSyDHMGmKQRsRcxq5MNAOmzegmPScIVdo3Zg',
+  authDomain: 'betarena-rv-6b382.firebaseapp.com',
+  projectId: 'betarena-rv-6b382',
+  databaseURL: "https://betarena-rv-6b382.firebaseio.com/",
   // Project number:
   // 755147220298
 }

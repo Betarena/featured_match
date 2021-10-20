@@ -9,13 +9,13 @@ import { gql } from "@apollo/client"
 */
 export const GET_LANG_SELECTED_FIXTURE = gql`
     query GET_LANG_SELECTED_FIXTURE($lang: String!) {
-        widget_featured_match_selection_dev(where: {lang: {_eq: $lang}}) {
+        widget_featured_match_selection(where: {lang: {_eq: $lang}}) {
             date
             fixture_id
             game_start
             lang
         }
-        widget_featured_match_translations_dev_by_pk(lang: $lang) {
+        widget_featured_match_translations_by_pk(lang: $lang) {
             assists
             bookmaker
             bet
@@ -51,7 +51,7 @@ export const GET_LANG_SELECTED_FIXTURE = gql`
 */
 export const GET_ALL_FIXTURE_DATA = gql`
     query GET_ALL_FIXTURE_DATA($id: Int!, $fixture_id: numeric!) {
-        widget_featured_match_best_player_dev_by_pk(fixture_id: $fixture_id) {
+        widget_featured_match_best_player_by_pk(fixture_id: $fixture_id) {
             fixture_id
             game_start_date
             local_team_player_1
@@ -79,13 +79,13 @@ export const GET_ALL_FIXTURE_DATA = gql`
             visitor_team_rating_player_1
             visitor_team_rating_player_2
         }
-        widget_featured_match_votes_dev_by_pk(match_id: $fixture_id) {
+        widget_featured_match_votes_by_pk(match_id: $fixture_id) {
             match_id
             vote_draw_x
             vote_win_local
             vote_win_visitor
         }
-        week_fixtures_dev_by_pk(id: $id) {
+        week_fixtures_by_pk(id: $id) {
             away_team_logo
             away_team_name
             country_flag

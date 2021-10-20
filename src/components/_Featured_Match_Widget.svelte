@@ -65,11 +65,11 @@
     if ($SELECTED_MATCH_FIXTURE.data) {
       // console.log('$SELECTED_MATCH_FIXTURE.data', $SELECTED_MATCH_FIXTURE.data);
       // ... get the rest of the data for the pre-selected fixture;
-      selected_fixture_id = $SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection_dev[0].fixture_id
+      selected_fixture_id = $SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection[0].fixture_id
       // ... get the translations;
-      translation = $SELECTED_MATCH_FIXTURE.data.widget_featured_match_translations_dev_by_pk
+      translation = $SELECTED_MATCH_FIXTURE.data.widget_featured_match_translations_by_pk
       // ... create a promise, for obtaining the complete fixture odds data;
-      promise = get_TargetFixtureOddsAndInfo($SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection_dev[0])
+      promise = get_TargetFixtureOddsAndInfo($SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection[0])
       // ... get the complete fixture data;
       get_CompleteFixtureData(selected_fixture_id);
     }
@@ -109,14 +109,14 @@
       // console.log("$FINAL_FIXTURE_DATA.data", $FINAL_FIXTURE_DATA.data)
       // ... gain access to the data of the fixture;
       // ... get fixture time;
-      fixtureTime = $FINAL_FIXTURE_DATA.data.week_fixtures_dev_by_pk.time
+      fixtureTime = $FINAL_FIXTURE_DATA.data.week_fixtures_by_pk.time
       fixtureTime = new Date(fixtureTime.toString())
       // ... assing the rest of the variables;
-      randomFixture = $FINAL_FIXTURE_DATA.data.week_fixtures_dev_by_pk
-      FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA = $FINAL_FIXTURE_DATA.data.widget_featured_match_best_player_dev_by_pk
-      match_fixture_votes = $FINAL_FIXTURE_DATA.data.widget_featured_match_votes_dev_by_pk
+      randomFixture = $FINAL_FIXTURE_DATA.data.week_fixtures_by_pk
+      FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA = $FINAL_FIXTURE_DATA.data.widget_featured_match_best_player_by_pk
+      match_fixture_votes = $FINAL_FIXTURE_DATA.data.widget_featured_match_votes_by_pk
       totalVotes = match_fixture_votes.vote_draw_x + match_fixture_votes.vote_win_local + match_fixture_votes.vote_win_visitor
-      FINAL_FIXTURE_DATA_TV_STATIONS_DATA = $FINAL_FIXTURE_DATA.data.week_fixtures_dev_by_pk.tvstations
+      FINAL_FIXTURE_DATA_TV_STATIONS_DATA = $FINAL_FIXTURE_DATA.data.week_fixtures_by_pk.tvstations
       if (randomFixture.valuebets != null) {
         getValueBetsData();
       }
@@ -163,7 +163,7 @@
         },   
         // upon recieveing the data update;
         update: (cache, { data }) => {
-          match_fixture_votes = data.update_widget_featured_match_votes_dev_by_pk;
+          match_fixture_votes = data.update_widget_featured_match_votes_by_pk;
           totalVotes = match_fixture_votes.vote_draw_x + match_fixture_votes.vote_win_local + match_fixture_votes.vote_win_visitor
         }
       });
