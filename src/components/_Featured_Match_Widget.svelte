@@ -60,9 +60,11 @@
     userGeoResponse = await getUserLocation();
     // console.log('userGeoPos', userGeoResponse.country_code)
   }
+  let userGeo;
   $: if (userGeoResponse != undefined && userGeoResponse.country_code) {
     // ... get the Users LeagueList;
     // console.log('userGeoResponse', userGeoResponse);
+    userGeo = userGeoResponse.country_code.toLowerCase()
     getSelectedFixture(userGeoResponse.country_code.toLowerCase()); // ... change to the USERS GEO LATER ON...
   }
 
@@ -183,7 +185,7 @@
     FINAL_VALUE_BETS_DATA = randomFixture.valuebets;
     let siteName: string = FINAL_VALUE_BETS_DATA.bookmaker;
     let sportbook_details: any = await getTargetGeoSportBookDetails(
-      "en",
+      userGeo,
       siteName
     );
     // ... check if the data returned exists;
