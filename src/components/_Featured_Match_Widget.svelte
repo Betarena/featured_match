@@ -64,7 +64,7 @@
   $: if (userGeoResponse != undefined && userGeoResponse.country_code) {
     // ... get the Users LeagueList;
     // console.log('userGeoResponse', userGeoResponse);
-    userGeo = userGeoResponse.country_code.toLowerCase()
+    userGeo = userGeoResponse.country_code.toLowerCase();
     getSelectedFixture(userGeoResponse.country_code.toLowerCase()); // ... change to the USERS GEO LATER ON...
   }
 
