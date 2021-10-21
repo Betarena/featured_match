@@ -81,7 +81,7 @@
   $: if ($SELECTED_MATCH_FIXTURE != undefined) {
     if ($SELECTED_MATCH_FIXTURE.data) {
       let dataAvailable = true;
-      console.log("$SELECTED_MATCH_FIXTURE.data", $SELECTED_MATCH_FIXTURE.data);
+      // console.log("$SELECTED_MATCH_FIXTURE.data", $SELECTED_MATCH_FIXTURE.data);
       // ... get the rest of the data for the pre-selected fixture;
       if (
         $SELECTED_MATCH_FIXTURE.data.widget_featured_match_selection.length == 0
