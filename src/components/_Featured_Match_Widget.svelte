@@ -189,6 +189,10 @@
       siteName
     );
     // ... check if the data returned exists;
+    if (Object.keys(sportbook_details).length === 0) {
+      FINAL_VALUE_BETS_DATA = null;
+      return;
+    }
     // ... append the image & the registration link to the data;
     FINAL_VALUE_BETS_DATA = {
       ...FINAL_VALUE_BETS_DATA,
