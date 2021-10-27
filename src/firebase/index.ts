@@ -107,7 +107,7 @@ export async function getTargetFixtureOdds(fixture_data: any): Promise<any> {
                 // ... iterate over the data of the fixture avaiable ODDS;
                 for (let avaiableOdd in fixture_odds_keys) {
                     // ... check for a match of the odds names;
-                    if (fixture_odds_keys[avaiableOdd].toString() == sportbook_details[rankedOdd]['title'].toString()) {
+                    if (fixture_odds_keys[avaiableOdd].toString().toLowerCase() == sportbook_details[rankedOdd]['title'].toString().toLowerCase()) {
                         // console.log('Match Found!')
                         let targetFixture = fixture_odds_keys[avaiableOdd]
                         let fixtureOdd = fixture_odds[targetFixture]
