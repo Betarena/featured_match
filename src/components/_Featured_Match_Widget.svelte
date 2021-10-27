@@ -149,7 +149,7 @@
   let intial: boolean = false;
   $: if ($FINAL_FIXTURE_DATA != undefined) {
     if ($FINAL_FIXTURE_DATA.data && !intial) {
-      console.log("$FINAL_FIXTURE_DATA.data", $FINAL_FIXTURE_DATA.data)
+      // console.log("$FINAL_FIXTURE_DATA.data", $FINAL_FIXTURE_DATA.data)
       // ... gain access to the data of the fixture;
       // ... get fixture time;
       fixtureTime = $FINAL_FIXTURE_DATA.data.week_fixtures_by_pk.time;
@@ -158,7 +158,7 @@
       randomFixture = $FINAL_FIXTURE_DATA.data.week_fixtures_by_pk;
       FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA =
         $FINAL_FIXTURE_DATA.data.widget_featured_match_best_player_by_pk;
-      console.log('FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA', FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA);
+      // console.log('FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA', FINAL_FIXTURE_DATA_BEST_PLAYERS_DATA);
       match_fixture_votes =
         $FINAL_FIXTURE_DATA.data.widget_featured_match_votes_by_pk;
       totalVotes =
