@@ -101,18 +101,22 @@ export async function getTargetFixtureOdds(fixture_data: any): Promise<any> {
             // ... get the `sportbook-details` data;
 
             let map = new Map()
+            let count = 0;
 
             // ... iterate over the data of the `lang` in sportbook details;
             for (let rankedOdd in sportbook_details) {
                 // ... iterate over the data of the fixture avaiable ODDS;
                 for (let avaiableOdd in fixture_odds_keys) {
                     // ... check for a match of the odds names;
-                    if (fixture_odds_keys[avaiableOdd].toString().toLowerCase() == sportbook_details[rankedOdd]['title'].toString().toLowerCase()) {
+                    // console.log('sportbook_details', sportbook_details[rankedOdd]['title'].toString().toLowerCase());
+                    if (fixture_odds_keys[avaiableOdd].toString().toLowerCase() == sportbook_details[rankedOdd]['title'].toString().toLowerCase()
+                        && count != 1) {
                         // console.log('Match Found!')
                         let targetFixture = fixture_odds_keys[avaiableOdd]
                         let fixtureOdd = fixture_odds[targetFixture]
                         map.set('fixture_odds', fixtureOdd)
                         map.set('fixture_odds_info', sportbook_details[rankedOdd])
+                        count = 1;
                     }
                 }
             }
