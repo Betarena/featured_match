@@ -666,8 +666,11 @@
                   {#if !viewportDesktop}
                     <span class="color-grey"> X </span>
                   {:else}
-                    <img
+                    <!-- 
                       src="./static/icon/icon-close.svg"
+                    -->
+                    <img
+                      src="https://www.betarena.com/widgets/featured_match/static/icon/icon-close.svg"
                       alt=""
                       width="28px"
                       height="28px"
@@ -767,9 +770,11 @@
           {#if showBettingSite}
             <div id="site-bet-box" in:fade>
               <!-- 
-              close-btn -->
+              close-btn 
+              src="./static/icon/white-close.svg"
+              -->
               <img
-                src="./static/icon/white-close.svg"
+                src="https://www.betarena.com/widgets/featured_match/static/icon/white-close.svg"
                 alt=""
                 width="16px"
                 height="16px"
@@ -1487,6 +1492,7 @@
   /* Firefox */
   input[type="number"] {
     -moz-appearance: textfield;
+    border: none;
   }
 
   /* ====================
@@ -1560,6 +1566,7 @@
     padding: 14px;
     height: 48px;
     width: 76px;
+    border: none;
   }
 
   .img-flag {
@@ -1574,6 +1581,7 @@
   #stakesSiteImg {
     background-color: var(--featured-match-bookmaker-bg-);
     object-fit: none;
+    height: 40px;
   }
 
   #live-stream-box {
@@ -1641,6 +1649,7 @@
     padding: 7px 12px;
     /* padding: 7px 0; */
     vertical-align: middle;
+    border: none !important;
   }
   table.table-best-player tr td:first-child {
     padding-left: 0;
@@ -1848,6 +1857,7 @@
     .tooltip {
       position: relative;
       display: inline-block;
+      border-bottom: none !important;
     }
     .tooltip .tooltiptext {
       visibility: hidden;
