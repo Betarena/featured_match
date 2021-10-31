@@ -670,7 +670,7 @@
                       src="./static/icon/icon-close.svg"
                     -->
                     <img
-                      src="https://www.betarena.com/widgets/featured_match/static/icon/icon-close.svg"
+                      src="../../widgets/featured_match/static/icon/icon-close.svg"
                       alt=""
                       width="28px"
                       height="28px"
@@ -774,7 +774,7 @@
               src="./static/icon/white-close.svg"
               -->
               <img
-                src="https://www.betarena.com/widgets/featured_match/static/icon/white-close.svg"
+                src="../../widgets/featured_match/static/icon/white-close.svg"
                 alt=""
                 width="16px"
                 height="16px"
