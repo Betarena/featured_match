@@ -839,7 +839,7 @@
 
                   <!-- MULTIPLY SIGN -->
                   <img
-                    src="./static/icon/icon-close.svg"
+                    src="../../widgets/featured_match/static/icon/icon-close.svg"
                     alt=""
                     width="16px"
                     height="16px"
@@ -860,7 +860,7 @@
 
                   <!-- EQUALS SIGN -->
                   <img
-                    src="./static/icon/icon-equally.svg"
+                    src="../../widgets/featured_match/static/icon/icon-equally.svg"
                     alt=""
                     width="16px"
                     height="16px"
