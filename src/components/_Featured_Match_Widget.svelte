@@ -288,7 +288,9 @@
       fixtureDataVote = {
         fixture_id: selected_fixture_id,
         fixture_vote: voteType,
-        fixture_vote_val: voteVal,
+        fixture_vote_val: parseFloat(Math.round(
+                      parseInt(voteVal.toString())
+                    ).toFixed(2)),
         _X_vote: 0,
         _1_vote: 0,
         _2_vote: 0,
@@ -618,7 +620,9 @@
                     />
                   {/if}
                   <span class:active_p={fixtureDataVote.fixture_vote == "1"}>
-                    {value.fixture_odds.markets["1X2FT"].data[0].value}
+                    {Math.round(
+                      parseInt(value.fixture_odds.markets["1X2FT"].data[0].value)
+                    ).toFixed(2)}
                   </span>
                 </p>
               </button>
@@ -630,7 +634,7 @@
                     <br />
                   {/if}
                   {Math.round(
-                    parseInt(randomFixture.probabilities.home)
+                    parseInt(randomFixture.probabilities.away)
                   ).toFixed(2)}%
                 </p>
               {:else if match_fixture_votes != undefined}
@@ -677,7 +681,9 @@
                     />
                   {/if}
                   <span class:active_p={fixtureDataVote.fixture_vote == "X"}>
-                    {value.fixture_odds.markets["1X2FT"].data[1].value}
+                    {Math.round(
+                      parseInt(value.fixture_odds.markets["1X2FT"].data[1].value)
+                    ).toFixed(2)}
                   </span>
                 </p>
               </button>
@@ -733,7 +739,9 @@
                     />
                   {/if}
                   <span class:active_p={fixtureDataVote.fixture_vote == "2"}>
-                    {value.fixture_odds.markets["1X2FT"].data[2].value}
+                    {Math.round(
+                      parseInt(value.fixture_odds.markets["1X2FT"].data[2].value)
+                    ).toFixed(2)}
                   </span>
                 </p>
               </button>
@@ -745,7 +753,7 @@
                     <br />
                   {/if}
                   {Math.round(
-                    parseInt(randomFixture.probabilities.away)
+                    parseInt(randomFixture.probabilities.home)
                   ).toFixed(2)}%
                 </p>
               {:else if match_fixture_votes != undefined}
@@ -1458,8 +1466,11 @@
     background: #ffffff;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.08);
     border-radius: 12px;
+    min-width: 100%;
     width: 100%;
     max-width: 343px;
+    padding-bottom: 4px;
+    overflow: hidden;
   }
 
   #fixture-league-title {
@@ -1686,6 +1697,9 @@
     background: #dbb884;
   }
 
+  .tooltip {
+    border-bottom: none !important;
+  }
   .tooltip .tooltiptext {
     display: none;
   }
