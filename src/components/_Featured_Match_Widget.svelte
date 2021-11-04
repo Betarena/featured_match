@@ -873,7 +873,7 @@
 
                     <!-- MULTIPLY SIGN -->
                     <img
-                      src="../../widgets/featured_match/static/icon/icon-close.svg"
+                      src="./static/icon/icon-close.svg"
                       alt=""
                       width="16px"
                       height="16px"
@@ -900,6 +900,7 @@
                       height="16px"
                       style="margin-top: 25px;"
                     />
+
                     <!-- 
                     Winnings 
                     -->
@@ -907,104 +908,6 @@
                       <p class="medium m-b-8 color-grey">
                         {translation.winnings}
                       </p>
-                  {/if}
-                  <span class:active_p={fixtureDataVote.fixture_vote == "2"}>
-                    {Math.round(
-                      parseInt(value.fixture_odds.markets["1X2FT"].data[2].value)
-                    ).toFixed(2)}
-                  </span>
-                </p>
-              </button>
-              <!-- fixture-probability -->
-              {#if !showBettingSite}
-                <p class="probablitiy-text medium">
-                  Probability
-                  {#if !viewportDesktop}
-                    <br />
-                  {/if}
-                  {Math.round(
-                    parseInt(randomFixture.probabilities.home)
-                  ).toFixed(2)}%
-                </p>
-              {:else if match_fixture_votes != undefined}
-                <p class="large">
-                  <span class="color-dark">
-                    {(
-                      (match_fixture_votes.vote_win_visitor / totalVotes) *
-                      100
-                    ).toFixed(0)}%
-                  </span>
-                  <span class="color-grey">
-                    ({match_fixture_votes.vote_win_visitor})
-                  </span>
-                </p>
-              {/if}
-            </div>
-          </div>
-          <!-- 
-          ~~~~~~~~~~~~~~
-          stakes-site-info-pop-up
-          -->
-          {#if showBettingSite}
-            <div id="site-bet-box" in:fade>
-              <!-- 
-              close-btn 
-              src="./static/icon/white-close.svg"
-              -->
-              <img
-                src="../../widgets/featured_match/static/icon/white-close.svg"
-                alt=""
-                width="16px"
-                height="16px"
-                style="position: absolute; top: 12px; right: 20px;"
-                on:click={() => (showBettingSite = false)}
-              />
-              <a href={value.fixture_odds_info.register_link}>
-                <img
-                  id="stakesSiteImg"
-                  src={value.fixture_odds_info.image}
-                  alt=""
-                  width="100%"
-                  height="40px"
-                />
-              </a>
-              <div id="inner-site-container">
-                <!-- 
-                STAKES DATA -->
-                <div class="m-b-20 row-space-out">
-                  <!-- 
-                  Win Type
-                  -->
-                  <div class="text-center">
-                    {#if fixtureDataVote.fixture_vote == "1"}
-                      <p class="medium m-b-8 color-grey">Home win</p>
-                    {:else if fixtureDataVote.fixture_vote == "X"}
-                      <p class="medium m-b-8 color-grey">Draw</p>
-                    {:else}
-                      <p class="medium m-b-8 color-grey">Away win</p>
-                    {/if}
-                    <div class="input-value row-space-out medium text-center">
-                      {#if viewportDesktop}
-                        {#if fixtureDataVote.fixture_vote == "1"}
-                          <img
-                            src={randomFixture.home_team_logo}
-                            alt=""
-                            width="28px"
-                            height="28px"
-                          />
-                        {:else if fixtureDataVote.fixture_vote == "X"}
-                          <p class="medium row-space-out">
-                            <span class="color-grey"> X </span>
-                          </p>
-                        {:else}
-                          <img
-                            src={randomFixture.away_team_logo}
-                            alt=""
-                            width="28px"
-                            height="28px"
-                          />
-                        {/if}
-                      {/if}
                       <input
                         class="input-value medium text-center"
                         type="number"
@@ -1025,35 +928,7 @@
                       </p>
                     </button>
                   </a>
-                  <!-- MULTIPLY SIGN -->
-                  <img
-                    src="../../widgets/featured_match/static/icon/icon-close.svg"
-                    alt=""
-                    width="16px"
-                    height="16px"
-                    style="margin-top: 25px;"
-                  />
 
-                  <!-- 
-                  Stake 
-                  -->
-                  <div class="text-center">
-                    <p class="medium m-b-8 color-grey">{translation.stake}</p>
-                    <input
-                      class="input-value medium text-center"
-                      type="text"
-                      bind:value={user_Stake_amount}
-                    />
-                  </div>
-
-                  <!-- EQUALS SIGN -->
-                  <img
-                    src="../../widgets/featured_match/static/icon/icon-equally.svg"
-                    alt=""
-                    width="16px"
-                    height="16px"
-                    style="margin-top: 25px;"
-                  />
                   <!-- 
                   BETTING SITE INFO -->
                   <p class="small text-center color-grey">
