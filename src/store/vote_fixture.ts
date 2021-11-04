@@ -8,7 +8,7 @@ import {
 export interface fixture {
     fixture_id: number
     fixture_vote: string
-    fixture_vote_val: number
+    fixture_vote_val: string
     _X_vote: number
     _1_vote: number
     _2_vote: number
