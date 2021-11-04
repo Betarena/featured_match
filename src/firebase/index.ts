@@ -7,8 +7,7 @@ import { get } from '../api/utils'
 import { db, db_real } from './init'
 
 import type { GeoJsResponse } from "../models/geo-js-interface";
-import type { FeaturedSite, FinalFeaturedSiteResponseDB } from "../models/firebase-real-db-interface"; 
-
+import type { FeaturedSite, FinalFeaturedSiteResponseDB } from "../models/firebase-real-db-interface";
 
 /**
  * A simple quick & easy function
@@ -63,26 +62,61 @@ export function writeData() {
 /**
  * Description:
  * ~~~~~~~~~~~~~~~~~
+ * 
+ * @param fixture_data 
+*/
+export function listenRealTimeOddsChange(fixture_data: any) {
+    // ...
+    if (process.env.isDev) console.debug('fixture_data', fixture_data);
+    // ... convert the datetime to the correct variables to search for the fixture;
+    let year_ = new Date(fixture_data.date).getFullYear().toString()
+    let month_ = new Date(fixture_data.date).getMonth()
+    // ...
+    let new_month_ = (month_ + 1).toString()
+    new_month_ = ("0" + new_month_).slice(-2)
+    // ...
+    let day_ = new Date(fixture_data.date).getDate().toString()
+    day_ = ("0" + day_).slice(-2)
+    // ...
+    let fixtureId = fixture_data.fixture_id
+    // ... listen to real-time fixture event changes;
+    const fixtureRef = db_real.ref('odds/' + year_ + '/' + new_month_ + '/' + day_ + '/' + fixtureId);
+    // ... setup-database event listener for the odds fixture changes;
+    let data;
+    fixtureRef.on('child_changed', function(snapshot) {
+        if (process.env.isDev) console.debug('fixture changed!')
+        if (process.env.isDev) console.debug('fixture cahnged data', snapshot.val())
+        data = snapshot.val()
+    });
+    return data;
+}
+
+/**
+ * Description:
+ * ~~~~~~~~~~~~~~~~~
  * Obtain the data from the `real_db` firebase DB
  * according to the users current geo-location
  * 
  * @param userGeoLocation
 */
-export async function getTargetFixtureOdds(fixture_data: any): Promise<any> {
-    // ... convert the datetime to the correct variables;
-    // console.log('fixture_data', fixture_data);
-    let date = new Date(fixture_data.date)
+export async function getTargetFixtureOdds(fixture_data: any) {
+    // ...
+    if (process.env.isDev) console.debug('fixture_data', fixture_data);
+    // ... convert the datetime to the correct variables to search for the fixture;
     let year_ = new Date(fixture_data.date).getFullYear().toString()
     let month_ = new Date(fixture_data.date).getMonth()
+    // ...
     let new_month_ = (month_ + 1).toString()
     new_month_ = ("0" + new_month_).slice(-2)
+    // ...
     let day_ = new Date(fixture_data.date).getDate().toString()
     day_ = ("0" + day_).slice(-2)
+    // ...
     let fixtureId = fixture_data.fixture_id
+    // ...
     let lang = fixture_data.lang
-
+    // ...
     let sportbook_details = await getTargetGeoSportBookDetails(lang);
-
     // ... return the odds-site info & the odds values;
     return db_real.ref()
         .child('odds')
@@ -94,24 +128,23 @@ export async function getTargetFixtureOdds(fixture_data: any): Promise<any> {
         .then((snapshot) => {
         // ... check if the data exists (should exist at all times anyway);
         if (snapshot.exists()) {
-            // console.info('data from Real DB', [snapshot.val()])
-            
+            // ...
+            if (process.env.isDev) console.debug('data from Real DB', [snapshot.val()])
+            // ...
             let fixture_odds = snapshot.val()
             let fixture_odds_keys = Object.keys(snapshot.val())
             // ... get the `sportbook-details` data;
-
             let map = new Map()
             let count = 0;
-
             // ... iterate over the data of the `lang` in sportbook details;
             for (let rankedOdd in sportbook_details) {
                 // ... iterate over the data of the fixture avaiable ODDS;
                 for (let avaiableOdd in fixture_odds_keys) {
                     // ... check for a match of the odds names;
-                    // console.log('sportbook_details', sportbook_details[rankedOdd]['title'].toString().toLowerCase());
+                    if (process.env.isDev) console.debug('sportbook_details', sportbook_details[rankedOdd]['title'].toString().toLowerCase());
                     if (fixture_odds_keys[avaiableOdd].toString().toLowerCase() == sportbook_details[rankedOdd]['title'].toString().toLowerCase()
                         && count != 1) {
-                        // console.log('Match Found!')
+                            if (process.env.isDev) console.log('Match Found!')
                         let targetFixture = fixture_odds_keys[avaiableOdd]
                         let fixtureOdd = fixture_odds[targetFixture]
                         map.set('fixture_odds', fixtureOdd)
@@ -120,10 +153,9 @@ export async function getTargetFixtureOdds(fixture_data: any): Promise<any> {
                     }
                 }
             }
-
+            // ...
             const obj = Object.fromEntries(map);
-
-            // return the response as an Array;
+            // ... return the response as an Array;
             return obj
         } else {
             throw new Error('Data from DB is incorrect');
