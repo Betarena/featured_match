@@ -111,6 +111,8 @@
   /**
    * Description:
    * ~~~~~~~~~~~~~~~~~~~
+   * ... real-time odds listening method function for the widget;
+   * 
    * @param fixture_data 
   */
   function listenRealTimeOddsChange(fixture_data: any) {
