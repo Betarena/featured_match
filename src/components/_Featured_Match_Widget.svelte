@@ -2,7 +2,7 @@
 	COMPONENT JS (w/ TS)
 ==================== -->
 <script lang="ts">
-  import { db, db_real } from '../firebase/init'
+  import { db_real } from '../firebase/init'
 
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
@@ -49,6 +49,19 @@
   let FINAL_VALUE_BETS_DATA: ValueBet;
   let selected_fixture_id: number;
   let userGeoResponse: GeoJsResponse;
+
+  // extract the user location data country code;
+  let contentDivClass;
+  let platformCountry;
+  if (document.querySelector(".main_lang")) {
+    if (document.querySelector(".main_lang").textContent != null) {
+      contentDivClass = document.querySelector(".main_lang").textContent;
+      contentDivClass = JSON.stringify(contentDivClass);
+      contentDivClass = contentDivClass.substring(11, 13);
+      console.log(contentDivClass);
+      platformCountry = contentDivClass.toLowerCase();
+    }
+  }
 
   getUserLocationNow();
 
@@ -864,7 +877,7 @@
                         <input
                           class="medium text-center desktop-view-winnings"
                           type="number"
-                          style="background: #FFFFFF;"
+                          style="background: #FFFFFF; color: black;"
                           bind:value={fixtureDataVote.fixture_vote_val}
                           disabled
                         />
@@ -889,6 +902,7 @@
                         class="input-value medium text-center"
                         type="text"
                         bind:value={user_Stake_amount}
+                        style='color: black;'
                       />
                     </div>
 
@@ -911,6 +925,7 @@
                       <input
                         class="input-value medium text-center"
                         type="number"
+                        style='color: black;'
                         value={(
                           parseFloat(fixtureDataVote.fixture_vote_val) * user_Stake_amount
                         ).toFixed(2)}
@@ -1634,6 +1649,7 @@
     gap: 8px;
     overflow-y: scroll;
     padding: 0 20px;
+    width: fit-content;
   }
   /* Hide scrollbar for Chrome, Safari and Opera */
   #livestream-grid::-webkit-scrollbar {

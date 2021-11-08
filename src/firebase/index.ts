@@ -4,7 +4,7 @@
  * & methods; 
 */
 import { get } from '../api/utils'
-import { db, db_real } from './init'
+import { db_real } from './init'
 
 import type { GeoJsResponse } from "../models/geo-js-interface";
 import type { FeaturedSite, FinalFeaturedSiteResponseDB } from "../models/firebase-real-db-interface";

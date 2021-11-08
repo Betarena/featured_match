@@ -21,6 +21,7 @@ const firebaseConfig = {
 // Initialize the Firebase APP
 firebase.initializeApp(firebaseConfig)
 // Get a reference to the Firestore Service
-export const db = firebase.firestore()
+// export const db = firebase.firestore().enablePersistence()
 // Get a reference to the Real Database Service
+// https://newbedev.com/firebase-cloud-firestore-throws-client-is-offline
 export const db_real = firebase.database()
