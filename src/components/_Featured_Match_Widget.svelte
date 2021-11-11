@@ -52,7 +52,7 @@
 
   // extract the user location data country code;
   let contentDivClass;
-  let platformCountry;
+  let platformCountry: string;
   if (document.querySelector(".main_lang")) {
     if (document.querySelector(".main_lang").textContent != null) {
       contentDivClass = document.querySelector(".main_lang").textContent;
@@ -92,8 +92,9 @@
    * @param fixtureId
    */
   async function getSelectedFixture(lang: string) {
+    if (process.env.isDev) platformCountry = "en"
     SELECTED_MATCH_FIXTURE = query(GET_LANG_SELECTED_FIXTURE, {
-      variables: { lang: lang },
+      variables: { lang: lang, lang_platform: platformCountry },
     });
   }
   // ... response listen;
@@ -1649,7 +1650,6 @@
     gap: 8px;
     overflow-y: scroll;
     padding: 0 20px;
-    width: fit-content;
   }
   /* Hide scrollbar for Chrome, Safari and Opera */
   #livestream-grid::-webkit-scrollbar {

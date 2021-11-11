@@ -8,7 +8,7 @@ import { gql } from "@apollo/client"
  * selected fixture from the DB
 */
 export const GET_LANG_SELECTED_FIXTURE = gql`
-    query GET_LANG_SELECTED_FIXTURE($lang: String!) {
+    query GET_LANG_SELECTED_FIXTURE($lang: String!, $lang_platform: String!) {
         widget_featured_match_selection(where: {lang: {_eq: $lang}}) {
             date
             fixture_id
@@ -16,7 +16,7 @@ export const GET_LANG_SELECTED_FIXTURE = gql`
             lang
         }
         # widget_featured_match_translations_by_pk(lang: $lang) {
-        widget_featured_match_translations_by_pk(lang: "en") {
+        widget_featured_match_translations_by_pk(lang: $lang_platform) {
             assists
             bookmaker
             bet
