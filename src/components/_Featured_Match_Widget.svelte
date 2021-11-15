@@ -673,7 +673,7 @@
                 <!-- fixture-probability -->
                 {#if !showBettingSite}
                   <p class="probablitiy-text medium">
-                    Probability
+                    {translation.probability}
                     {#if !viewportDesktop}
                       <br />
                     {/if}
@@ -732,7 +732,7 @@
                 <!-- fixture-probability -->
                 {#if !showBettingSite}
                   <p class="probablitiy-text medium">
-                    Probability
+                    {translation.probability}
                     {#if !viewportDesktop}
                       <br />
                     {/if}
@@ -788,7 +788,7 @@
                 <!-- fixture-probability -->
                 {#if !showBettingSite}
                   <p class="probablitiy-text medium">
-                    Probability
+                    {translation.probability}
                     {#if !viewportDesktop}
                       <br />
                     {/if}
@@ -1328,6 +1328,7 @@
                       alt={FINAL_VALUE_BETS_DATA.bookmaker}
                       height="30px"
                       width="56px"
+                      style="height: 30px !important;"
                     />
                   </a>
                 </div>
@@ -1346,7 +1347,7 @@
                     {translation.market}
                   </p>
                   <p class="medium color-dark">
-                    {translation.market_type}
+                    {FINAL_VALUE_BETS_DATA.bet.toString()}
                   </p>
                 </div>
 
@@ -1361,9 +1362,7 @@
                       border-radius: 4px;
                       padding: 4px 6px;"
                     >
-                      {Math.round(
-                        parseInt(FINAL_VALUE_BETS_DATA.odd.toString())
-                      ).toFixed(2)}
+                      {parseFloat(FINAL_VALUE_BETS_DATA.odd.toString()).toFixed(2)}
                     </p>
                   </a>
                 </div>
@@ -1379,9 +1378,7 @@
                       border-radius: 4px;
                       padding: 4px 6px;"
                     >
-                      {Math.round(
-                        parseInt(FINAL_VALUE_BETS_DATA.fair_odd.toString())
-                      ).toFixed(2)}
+                      {parseFloat(FINAL_VALUE_BETS_DATA.fair_odd.toString()).toFixed(2)}
                     </p>
                   </a>
                 </div>
@@ -1443,7 +1440,7 @@
                       alt={FINAL_VALUE_BETS_DATA.bookmaker}
                       height="30px"
                       width="56px"
-                      style="object-fit: cover; border-radius: 4px;"
+                      style="object-fit: cover; border-radius: 4px; height: 30px !important;"
                     />
                   </a>
                 </td>
@@ -1454,7 +1451,7 @@
                 </td>
                 <td>
                   <p class="medium text-center">
-                    {translation.market_type}
+                    {FINAL_VALUE_BETS_DATA.bet.toString()}
                   </p>
                 </td>
                 <td>
@@ -1462,9 +1459,7 @@
                     <p
                       class="medium max-height: 30px; boxed-rating-value-bets active_p_btn"
                     >
-                      {Math.round(
-                        parseInt(FINAL_VALUE_BETS_DATA.odd.toString())
-                      ).toFixed(2)}
+                      {parseFloat(FINAL_VALUE_BETS_DATA.odd.toString()).toFixed(2)}
                     </p>
                   </a>
                 </td>
@@ -1473,9 +1468,7 @@
                     <p
                       class="medium max-height: 30px; boxed-rating-value-bets active_p_btn"
                     >
-                      {Math.round(
-                        parseInt(FINAL_VALUE_BETS_DATA.fair_odd)
-                      ).toFixed(2)}
+                      {parseFloat(FINAL_VALUE_BETS_DATA.fair_odd.toString()).toFixed(2)}
                     </p>
                   </a>
                 </td>
@@ -1530,7 +1523,7 @@
     display: grid;
     grid-auto-flow: column;
     justify-items: center;
-    align-items: stretch;
+    align-items: end;
     justify-content: center;
     grid-template-columns: 1fr 1fr 1fr;
     text-align: center;
