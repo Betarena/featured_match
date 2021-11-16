@@ -853,7 +853,7 @@
                       {:else}
                         <p class="medium m-b-8 color-grey">Away win</p>
                       {/if}
-                      <div class="input-value row-space-out medium text-center">
+                      <div class="input-value row-space-out medium text-center" style='padding: 0 !important;'>
                         {#if viewportDesktop}
                           {#if fixtureDataVote.fixture_vote == "1"}
                             <img
@@ -878,9 +878,9 @@
                         <input
                           class="medium text-center desktop-view-winnings"
                           type="number"
-                          style="background: #FFFFFF; color: black;"
                           bind:value={fixtureDataVote.fixture_vote_val}
                           disabled
+                          style="background: #FFFFFF; color: black !important; opacity: 1 !important;"
                         />
                       </div>
                     </div>
@@ -903,7 +903,7 @@
                         class="input-value medium text-center"
                         type="text"
                         bind:value={user_Stake_amount}
-                        style='color: black;'
+                        style='color: black !important; opacity: 1 !important;'
                       />
                     </div>
 
@@ -926,11 +926,11 @@
                       <input
                         class="input-value medium text-center"
                         type="number"
-                        style='color: black;'
                         value={(
                           parseFloat(fixtureDataVote.fixture_vote_val) * user_Stake_amount
                         ).toFixed(2)}
                         disabled
+                        style='color: black !important; opacity: 1 !important;'
                       />
                     </div>
                   </div>
@@ -1643,6 +1643,7 @@
     gap: 8px;
     overflow-y: scroll;
     padding: 0 20px;
+    grid-template-columns: repeat(auto-fill, 71px);
   }
   /* Hide scrollbar for Chrome, Safari and Opera */
   #livestream-grid::-webkit-scrollbar {
