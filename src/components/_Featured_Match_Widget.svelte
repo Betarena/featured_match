@@ -853,7 +853,7 @@
                       {:else}
                         <p class="medium m-b-8 color-grey">Away win</p>
                       {/if}
-                      <div class="input-value row-space-out medium text-center" style='padding: 0 !important;'>
+                      <div class="input-value row-space-out medium text-center">
                         {#if viewportDesktop}
                           {#if fixtureDataVote.fixture_vote == "1"}
                             <img
@@ -1610,7 +1610,6 @@
     -moz-appearance: textfield;
     background: #ffffff;
     border-radius: 8px;
-    padding: 14px;
     height: 48px;
     width: 76px;
     border: none;
@@ -1840,6 +1839,7 @@
     .input-value {
       width: 100%;
       max-width: 164px;
+      padding: 14px;
     }
     .cast-vote-btn {
       min-width: 206px;
