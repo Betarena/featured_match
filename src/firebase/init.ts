@@ -2,13 +2,13 @@
 // firebase/index.ts
 // ~~~~~~~~~~~~~~~~~~
 
-import firebase from 'firebase/app' // rollup bundle issue with ESM import
-import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/database'
-import {
-  readable
-} from 'svelte/store'
+// import firebase from 'firebase/app' // rollup bundle issue with ESM import
+// import 'firebase/auth'
+// import 'firebase/firestore'
+// import 'firebase/database'
+// import {
+//   readable
+// } from 'svelte/store'
 
 // firebase config with non-auth properties skipped
 const firebaseConfig = {
@@ -19,7 +19,7 @@ const firebaseConfig = {
 }
 
 // Initialize the Firebase APP
-firebase.initializeApp(firebaseConfig)
+// firebase.initializeApp(firebaseConfig)
 // Get a reference to the Firestore Service
 // export const db = firebase.firestore().enablePersistence()
 // Get a reference to the Real Database Service
